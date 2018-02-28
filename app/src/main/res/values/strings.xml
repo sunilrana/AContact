@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AContact</string>
+    <string name="snackbar_settings">Settings</string>
+    <string name="snackbar_read_contacts">We need contact read permission</string>
+</resources>
