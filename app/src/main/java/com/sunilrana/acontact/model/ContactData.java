@@ -1,13 +1,15 @@
 package com.sunilrana.acontact.model;
 
+import java.util.ArrayList;
+
 public class ContactData {
 
     private String id;
     private String name;
-    private String email;
-    private String phone;
+    private ArrayList<String> email;
+    private ArrayList<String> phone;
 
-    public ContactData(String id, String name, String phone, String email) {
+    public ContactData(String id, String name, ArrayList<String> phone, ArrayList<String> email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -30,26 +32,21 @@ public class ContactData {
         this.name = name;
     }
 
-    public String getEmail() {
+    public ArrayList<String> getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(ArrayList<String> email) {
         this.email = email;
     }
 
-    public String getPhone() {
+    public ArrayList<String> getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(ArrayList<String> phone) {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder("ContactData --> ");
-        builder.append(name).append(" - ").append(email).append(" - ").append(phone);
-        return builder.toString();
-    }
+
 }

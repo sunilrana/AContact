@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import com.sunilrana.acontact.model.ContactData;
 
+import java.util.ArrayList;
+
 
 public class ContactHelper {
 
@@ -20,6 +22,9 @@ public class ContactHelper {
 
     public ContactData getPhoneBookContacts(Uri contactUrl) {
 
+        ArrayList<String> emailList = new ArrayList<>();
+        ArrayList<String> mobileList = new ArrayList<>();
+
         ContactData contactData = null;
         Cursor contactsCursor = getContactsCursor(contactUrl);
         if (isCursorValid(contactsCursor)) {
@@ -30,15 +35,32 @@ public class ContactHelper {
                 Cursor phones = getPHoneCursor(contactId);
 
                 if (isCursorValid(emails) && isCursorValid(phones)) {
-                    String name = contactsCursor.getString(contactsCursor.getColumnIndex(
-                            ContactsContract.Data.DISPLAY_NAME));
-                    String emailAddress = emails.getString(emails.getColumnIndex(ContactsContract
-                            .CommonDataKinds.Email.DATA));
-                    String phone = phones.getString(phones.getColumnIndex(
-                            ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    String name = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+
+                    String phone = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    mobileList.add(phone);
+
+                    while (phones.moveToNext()) {
+                        String phoneN = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        mobileList.add(phoneN);
+
+                    }
+                    phones.close();
+
+
+
+                    while (emails.moveToNext()) {
+
+                        String emAddress = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                        emailList.add(emAddress);
+                    }
+
+                    emails.close();
+
+
 
                     if (!TextUtils.isEmpty(phone)) {
-                        contactData = new ContactData(contactId, name, phone , emailAddress);
+                        contactData = new ContactData(contactId, name, mobileList , emailList);
                     }
                 }
                 closeCursor(emails);

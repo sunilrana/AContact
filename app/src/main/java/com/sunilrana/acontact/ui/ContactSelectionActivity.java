@@ -90,8 +90,8 @@ public class ContactSelectionActivity extends Activity implements PermissionCall
                 Log.d(TAG, "Contact Id: " + contactData.getId());
 
                 mNameTv.setText(contactData.getName());
-                mEmailTv.setText(contactData.getEmail());
-                mPhoneTv.setText(contactData.getPhone());
+                mEmailTv.setText(contactData.getEmail().toString());
+                mPhoneTv.setText(contactData.getPhone().toString());
             }else{
                 Toast.makeText(this, "Mobile & email is not available.", Toast.LENGTH_LONG).show();
             }
